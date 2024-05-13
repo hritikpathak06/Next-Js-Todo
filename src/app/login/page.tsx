@@ -12,6 +12,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState("12345");
   const router = useRouter();
   const [user, setUser] = useState();
+  const[loading,setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("user") as any);
@@ -28,6 +29,7 @@ const LoginPage = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const { data } = await axios.post("/api/login", {
         email,
         password,
@@ -35,9 +37,11 @@ const LoginPage = () => {
       if (data.success) {
         localStorage.setItem("user", JSON.stringify(data.user));
         window.location.reload();
+        setLoading(false);
       }
     } catch (error: any) {
       toast.error("Inavlid Email or Password");
+      setLoading(false);
     }
   };
 
@@ -64,7 +68,7 @@ const LoginPage = () => {
               onChange={(e: any) => setPassword(e.target.value)}
               required
             />
-            <Button type="submit">Login</Button>
+            <Button type="submit" disabled={loading}>{loading ? "Loading" : "Login"}</Button>
             <p>
               Dont have an account ?{" "}
               <span>
