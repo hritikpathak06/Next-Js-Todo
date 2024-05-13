@@ -10,7 +10,7 @@ Clone The Server
 
 ## Step->2
 
-Install The Dependencie
+Install The Dependencies
 
 ```bash
   npm run install
