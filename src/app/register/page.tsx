@@ -8,7 +8,7 @@ import React, { useEffect, useState } from "react";
 
 const RegisterPage = () => {
   const [user, setUser] = useState();
-  const router = useRouter();
+  const router = useRouter() ;
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("user") as any);
